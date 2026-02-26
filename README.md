@@ -1,5 +1,7 @@
 # Pelmadulla Taxi & Vehicle Booking System
 
+> 🚧 **Work In Progress**: This project is currently under active development. Features and documentation are subject to change.
+
 A full-stack web application for managing vehicle rentals and taxi bookings. This system provides distinct interfaces for customers to book vehicles and for administrators to manage the fleet, track bookings, and view business analytics.
 
 ## 🚀 Features
@@ -70,6 +72,3 @@ The application should now be running at `http://localhost:5173`.
 
 ### Fleet Browsing
 ![Fleet](./screenshots/fleet.png)
-
-## 📄 License
-This project is licensed under the MIT License.

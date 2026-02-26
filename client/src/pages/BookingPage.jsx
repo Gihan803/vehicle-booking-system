@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { getVehicle, createBooking } from '../services/api';
-import { FiCalendar, FiArrowLeft, FiCheck } from 'react-icons/fi';
-import { FaCar } from 'react-icons/fa';
-import toast from 'react-hot-toast';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { getVehicle, createBooking } from "../services/api";
+import { FiCalendar, FiArrowLeft, FiCheck } from "react-icons/fi";
+import { FaCar } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const BookingPage = () => {
     const { id } = useParams();
@@ -12,22 +12,23 @@ const BookingPage = () => {
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [form, setForm] = useState({
-        startDate: '',
-        endDate: '',
-        notes: '',
+        startDate: "",
+        endDate: "",
+        notes: "",
     });
 
     useEffect(() => {
         fetchVehicle();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     const fetchVehicle = async () => {
         try {
             const { data } = await getVehicle(id);
             setVehicle(data);
-        } catch (err) {
-            toast.error('Vehicle not found');
-            navigate('/fleet');
+        } catch {
+            toast.error("Vehicle not found");
+            navigate("/fleet");
         } finally {
             setLoading(false);
         }
@@ -46,7 +47,7 @@ const BookingPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (calculateDays() <= 0) {
-            toast.error('Please select valid dates');
+            toast.error("Please select valid dates");
             return;
         }
 
@@ -58,10 +59,10 @@ const BookingPage = () => {
                 endDate: form.endDate,
                 notes: form.notes,
             });
-            toast.success('Booking request submitted! Waiting for admin approval.');
-            navigate('/dashboard');
+            toast.success("Booking request submitted! Waiting for admin approval.");
+            navigate("/dashboard");
         } catch (err) {
-            toast.error(err.response?.data?.message || 'Booking failed');
+            toast.error(err.response?.data?.message || "Booking failed");
         } finally {
             setSubmitting(false);
         }
@@ -70,7 +71,7 @@ const BookingPage = () => {
     // Get tomorrow's date as minimum start date
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const minDate = tomorrow.toISOString().split('T')[0];
+    const minDate = tomorrow.toISOString().split("T")[0];
 
     if (loading) {
         return (
@@ -83,14 +84,19 @@ const BookingPage = () => {
     return (
         <div className="min-h-screen">
             <div className="container-app lg:max-w-3xl py-8">
-                <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors">
+                <button
+                    onClick={() => navigate(-1)}
+                    className="flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors"
+                >
                     <FiArrowLeft /> Back
                 </button>
 
                 <h1 className="text-3xl font-bold text-white mb-2">
                     Book <span className="gradient-text">{vehicle?.name}</span>
                 </h1>
-                <p className="text-slate-400 mb-8">Fill in the details below to request a booking.</p>
+                <p className="text-slate-400 mb-8">
+                    Fill in the details below to request a booking.
+                </p>
 
                 <div className="grid md:grid-cols-3 gap-6">
                     {/* Booking form */}
@@ -104,7 +110,9 @@ const BookingPage = () => {
                                     <input
                                         type="date"
                                         value={form.startDate}
-                                        onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+                                        onChange={(e) =>
+                                            setForm({ ...form, startDate: e.target.value })
+                                        }
                                         min={minDate}
                                         className="input-field"
                                         required
@@ -117,7 +125,9 @@ const BookingPage = () => {
                                     <input
                                         type="date"
                                         value={form.endDate}
-                                        onChange={(e) => setForm({ ...form, endDate: e.target.value })}
+                                        onChange={(e) =>
+                                            setForm({ ...form, endDate: e.target.value })
+                                        }
                                         min={form.startDate || minDate}
                                         className="input-field"
                                         required
@@ -126,7 +136,9 @@ const BookingPage = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Notes (Optional)</label>
+                                <label className="block text-sm text-slate-400 mb-2">
+                                    Notes (Optional)
+                                </label>
                                 <textarea
                                     value={form.notes}
                                     onChange={(e) => setForm({ ...form, notes: e.target.value })}
@@ -147,7 +159,9 @@ const BookingPage = () => {
                                         Submitting...
                                     </span>
                                 ) : (
-                                    <span className="flex items-center gap-2"><FiCheck /> Submit Booking Request</span>
+                                    <span className="flex items-center gap-2">
+                                        <FiCheck /> Submit Booking Request
+                                    </span>
                                 )}
                             </button>
                         </form>
@@ -161,7 +175,9 @@ const BookingPage = () => {
                                     <FaCar className="text-amber-500 text-xl" />
                                 </div>
                                 <div>
-                                    <h3 className="text-white font-semibold text-sm">{vehicle?.name}</h3>
+                                    <h3 className="text-white font-semibold text-sm">
+                                        {vehicle?.name}
+                                    </h3>
                                     <p className="text-slate-400 text-xs">{vehicle?.category}</p>
                                 </div>
                             </div>
@@ -169,7 +185,9 @@ const BookingPage = () => {
                             <div className="space-y-3 text-sm">
                                 <div className="flex justify-between">
                                     <span className="text-slate-400">Price/day</span>
-                                    <span className="text-white">Rs. {vehicle?.pricePerDay?.toLocaleString()}</span>
+                                    <span className="text-white">
+                                        Rs. {vehicle?.pricePerDay?.toLocaleString()}
+                                    </span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-slate-400">Duration</span>
@@ -177,12 +195,15 @@ const BookingPage = () => {
                                 </div>
                                 <div className="border-t border-white/10 pt-3 flex justify-between">
                                     <span className="text-white font-semibold">Total</span>
-                                    <span className="text-xl font-bold gradient-text">Rs. {totalPrice.toLocaleString()}</span>
+                                    <span className="text-xl font-bold gradient-text">
+                                        Rs. {totalPrice.toLocaleString()}
+                                    </span>
                                 </div>
                             </div>
 
                             <p className="text-xs text-slate-400 mt-4">
-                                Your booking will be reviewed by our admin. You'll see the status in your dashboard.
+                                Your booking will be reviewed by our admin. You'll see the
+                                status in your dashboard.
                             </p>
                         </div>
                     </div>

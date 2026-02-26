@@ -61,7 +61,15 @@ npm run dev
 The application should now be running at `http://localhost:5173`.
 
 ## 📸 Screenshots
-*(Add your screenshots here after uploading to GitHub)*
+
+### Admin Dashboard
+![Admin Dashboard](./screenshots/admin-dashboard.png)
+
+### Customer Dashboard
+![Customer Dashboard](./screenshots/customer-dashboard.png)
+
+### Fleet Browsing
+![Fleet](./screenshots/fleet.png)
 
 ## 📄 License
 This project is licensed under the MIT License.

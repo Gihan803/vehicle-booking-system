@@ -98,14 +98,14 @@ const ManageBookings = () => {
                 </p>
 
                 {/* Filter tabs */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="inline-flex gap-1.5 overflow-x-auto hide-scrollbar bg-slate-800/50 p-1.5 rounded-xl border border-white/5 mb-8 w-full sm:w-auto max-w-full">
                     {["pending", "confirmed", "rejected", "completed", "all"].map((f) => (
                         <button
                             key={f}
                             onClick={() => setFilter(f)}
-                            className={`px-4 py-2 rounded-lg text-sm capitalize transition-all ${filter === f
-                                ? "bg-amber-500/20 text-amber-500 border border-amber-500/30"
-                                : "text-slate-400 hover:text-white hover:bg-white/10 border border-transparent"
+                            className={`px-5 py-2.5 rounded-lg text-sm font-medium capitalize whitespace-nowrap transition-all duration-200 ${filter === f
+                                ? "bg-amber-500/20 text-amber-500 border border-amber-500/30 shadow-sm"
+                                : "text-slate-400 hover:text-slate-200 hover:bg-white/5 border border-transparent"
                                 }`}
                         >
                             {f}
@@ -128,104 +128,120 @@ const ManageBookings = () => {
                         </h3>
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-10">
-                        {bookings.map((booking) => (
-                            <div key={booking._id} className="glass-card p-5 sm:p-6">
-                                <div className="flex flex-col lg:flex-row lg:items-start gap-4">
-                                    {/* Vehicle info */}
-                                    <div className="flex items-center gap-3 lg:w-48 flex-shrink-0">
-                                        <div className="w-14 h-14 rounded-lg bg-white/5 flex items-center justify-center">
-                                            <FaCar className="text-amber-500 text-xl" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-white font-semibold text-sm">
-                                                {booking.vehicle?.name}
-                                            </h3>
-                                            <p className="text-slate-400 text-xs">
-                                                {booking.vehicle?.category}
-                                            </p>
-                                            <span
-                                                className={`badge ${statusColors[booking.status]} mt-1 inline-block`}
-                                            >
-                                                {booking.status}
-                                            </span>
-                                        </div>
-                                    </div>
+                    <div className="relative z-10 overflow-x-auto overflow-y-visible">
+                        <table className="glass-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Vehicle</th>
+                                    <th>Customer</th>
+                                    <th>Status</th>
+                                    <th className="text-right">Amount</th>
+                                    <th className="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {bookings.map((booking) => {
+                                    const dpStart = new Date(booking.startDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+                                    const dpEnd = new Date(booking.endDate).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
-                                    {/* Customer info */}
-                                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                                        <div className="space-y-1.5">
-                                            <div className="flex items-center gap-2 text-slate-200">
-                                                <FiUser size={14} className="text-amber-500" />
-                                                <span>{booking.customer?.name}</span>
-                                            </div>
-                                            <div className="flex items-center gap-2 text-slate-400">
-                                                <FiPhone size={14} className="text-slate-400" />
-                                                <span>{booking.customer?.phone}</span>
-                                            </div>
-                                            <div className="flex items-center gap-2 text-slate-400">
-                                                <FiCreditCard size={14} className="text-slate-400" />
-                                                <span>NIC: {booking.customer?.nic}</span>
-                                            </div>
-                                            <div className="flex items-center gap-2 text-slate-400">
-                                                <FiCreditCard size={14} className="text-slate-400" />
-                                                <span>DL: {booking.customer?.drivingLicense}</span>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-1.5">
-                                            <div className="flex items-center gap-2 text-slate-200">
-                                                <FiCalendar size={14} className="text-amber-500" />
-                                                <span>
-                                                    {formatDate(booking.startDate)} -{" "}
-                                                    {formatDate(booking.endDate)}
+                                    return (
+                                        <tr key={booking._id} className="glass-table-row">
+                                            {/* Date Column */}
+                                            <td>
+                                                <div className="flex flex-col">
+                                                    <span className="text-white font-medium text-sm sm:text-base tracking-tight">{dpStart}</span>
+                                                    <span className="text-slate-500 text-xs mt-0.5">to {dpEnd}</span>
+                                                </div>
+                                            </td>
+
+                                            {/* Vehicle Column */}
+                                            <td>
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                                                        <FaCar className="text-blue-400 text-base" />
+                                                    </div>
+                                                    <div className="flex flex-col">
+                                                        <span className="text-slate-200 text-sm sm:text-base font-medium truncate max-w-[140px] sm:max-w-xs">{booking.vehicle?.name || "Vehicle"}</span>
+                                                        <span className="text-slate-500 text-xs">{booking.vehicle?.category}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            {/* Customer Column */}
+                                            <td>
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                                                        <FiUser className="text-purple-400 text-base" />
+                                                    </div>
+                                                    <div className="flex flex-col gap-0.5">
+                                                        <span className="text-slate-200 text-sm sm:text-base font-medium truncate max-w-[140px] sm:max-w-[200px]">{booking.customer?.name || "Customer"}</span>
+                                                        <span className="text-slate-500 text-xs flex items-center gap-1">
+                                                            <FiPhone size={10} /> {booking.customer?.phone}
+                                                        </span>
+                                                        <span className="text-slate-500 text-xs line-clamp-1 py-0.5">
+                                                            NIC: {booking.customer?.nic} | DL: {booking.customer?.drivingLicense}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            {/* Status Column */}
+                                            <td className="whitespace-nowrap">
+                                                <span className={`badge ${statusColors[booking.status]}`}>
+                                                    {booking.status}
                                                 </span>
-                                            </div>
-                                            <div className="text-amber-500 font-semibold">
-                                                Total: Rs. {booking.totalPrice?.toLocaleString()}
-                                            </div>
-                                            {booking.notes && (
-                                                <div className="text-slate-400 text-xs italic">
-                                                    Note: {booking.notes}
-                                                </div>
-                                            )}
-                                            {booking.rejectionReason && (
-                                                <div className="text-red-400 text-xs">
-                                                    Reason: {booking.rejectionReason}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
+                                                {booking.rejectionReason && (
+                                                    <div className="text-red-400 text-xs mt-1 w-24 truncate" title={booking.rejectionReason}>
+                                                        {booking.rejectionReason}
+                                                    </div>
+                                                )}
+                                            </td>
 
-                                    {/* Actions */}
-                                    <div className="flex items-center gap-2 lg:flex-col lg:items-end flex-shrink-0">
-                                        {booking.status === "pending" && (
-                                            <>
-                                                <button
-                                                    onClick={() => handleApprove(booking._id)}
-                                                    className="btn-success flex items-center gap-1 !text-xs"
-                                                >
-                                                    <FiCheck size={14} /> Approve
-                                                </button>
-                                                <button
-                                                    onClick={() => setRejectModal(booking._id)}
-                                                    className="btn-danger flex items-center gap-1 !text-xs"
-                                                >
-                                                    <FiX size={14} /> Reject
-                                                </button>
-                                            </>
-                                        )}
-                                        {booking.status === "confirmed" && (
-                                            <button
-                                                onClick={() => handleComplete(booking._id)}
-                                                className="btn-primary !text-xs"
-                                            >
-                                                Complete
-                                            </button>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                                            {/* Amount Column */}
+                                            <td className="text-right whitespace-nowrap">
+                                                <span className="text-white font-bold text-sm sm:text-base tracking-tight">Rs. {booking.totalPrice?.toLocaleString()}</span>
+                                            </td>
+
+                                            {/* Actions Column */}
+                                            <td className="text-right whitespace-nowrap">
+                                                <div className="flex items-center justify-end gap-2">
+                                                    {booking.status === "pending" && (
+                                                        <>
+                                                            <button
+                                                                onClick={() => handleApprove(booking._id)}
+                                                                className="btn-success flex items-center justify-center w-8 h-8 rounded-lg !p-0"
+                                                                title="Approve"
+                                                            >
+                                                                <FiCheck size={16} />
+                                                            </button>
+                                                            <button
+                                                                onClick={() => setRejectModal(booking._id)}
+                                                                className="btn-danger flex items-center justify-center w-8 h-8 rounded-lg !p-0"
+                                                                title="Reject"
+                                                            >
+                                                                <FiX size={16} />
+                                                            </button>
+                                                        </>
+                                                    )}
+                                                    {booking.status === "confirmed" && (
+                                                        <button
+                                                            onClick={() => handleComplete(booking._id)}
+                                                            className="btn-primary !px-3 py-1.5 !text-xs rounded-lg"
+                                                        >
+                                                            Complete
+                                                        </button>
+                                                    )}
+                                                    {booking.status !== "pending" && booking.status !== "confirmed" && (
+                                                        <span className="text-slate-600 text-xs font-medium">-</span>
+                                                    )}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
                     </div>
                 )}
             </div>

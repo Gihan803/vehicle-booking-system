@@ -38,6 +38,15 @@ const AdminDashboard = () => {
   const formatDate = (d) =>
     new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
+  const getStartDateParts = (dateString) => {
+    const d = new Date(dateString);
+    return {
+      month: d.toLocaleDateString("en-US", { month: "short" }),
+      day: d.getDate(),
+      year: d.getFullYear(),
+    };
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -104,20 +113,28 @@ const AdminDashboard = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 gap-y-4 lg:gap-5 lg:gap-y-5 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5 mb-12">
           {statCards.map((card) => (
-            <div key={card.label} className="glass-card p-5">
-              <div className="flex items-center gap-3">
-                <div
-                  className={`w-10 h-10 rounded-xl ${card.bg} flex items-center justify-center flex-shrink-0`}
-                >
-                  <card.icon className={`text-lg ${card.iconColor}`} />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-lg font-bold text-white truncate">
-                    {card.value}
-                  </div>
-                  <div className="text-slate-400 text-xs">{card.label}</div>
+            <div
+              key={card.label}
+              className="glass-card border border-white/10 p-6 sm:p-8 relative overflow-hidden flex flex-col justify-center items-center text-center min-h-[130px] sm:min-h-[150px]"
+            >
+              {/* Background Watermark Icon */}
+              <card.icon
+                className={`absolute -bottom-4 -right-4 text-[5rem] sm:text-[6rem] opacity-[0.05] z-0 ${card.iconColor}`}
+              />
+
+              <div className="text-slate-400 text-sm sm:text-base font-medium leading-snug relative z-10 w-full">
+                {card.label}
+              </div>
+
+              <div className="flex items-center justify-center mt-5 sm:mt-6 relative z-10 w-full">
+                {/* Accent vertical line */}
+                <div className={`w-1 h-6 sm:w-1.5 sm:h-8 rounded-full bg-current ${card.iconColor}`} />
+
+                {/* Value / Number */}
+                <div className={`ml-4 sm:ml-6 text-4xl sm:text-5xl font-bold tracking-tight leading-none ${card.iconColor}`}>
+                  {card.value}
                 </div>
               </div>
             </div>
@@ -127,43 +144,57 @@ const AdminDashboard = () => {
         <div className="h-8 sm:h-12 w-full"></div>
 
         {/* Quick links */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 gap-y-4 lg:gap-5 lg:gap-y-5 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5 mb-12">
           <Link
             to="/admin/bookings"
-            className="glass-card p-5 flex items-center gap-4 group hover:border-amber-500/30"
+            className="glass-card border border-white/10 p-6 sm:p-8 relative overflow-hidden group hover:-translate-y-1 transition-all duration-300 flex flex-col justify-center items-center text-center min-h-[130px] sm:min-h-[150px] hover:border-amber-500/30 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]"
           >
-            <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-              <FiList className="text-amber-500 text-lg" />
+            {/* Background Watermark Icon */}
+            <FiList className="absolute -bottom-4 -right-4 text-[5rem] sm:text-[6rem] opacity-[0.05] group-hover:opacity-[0.15] group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 z-0 text-amber-500" />
+
+            <div className="text-slate-400 text-sm sm:text-base font-medium leading-snug relative z-10 w-full">
+              Manage Bookings
             </div>
-            <div className="min-w-0">
-              <h3 className="text-white font-semibold text-sm">
-                Manage Bookings
-              </h3>
-              <p className="text-slate-400 text-xs mt-0.5">Review & approve</p>
+
+            <div className="flex items-center justify-center mt-3 sm:mt-4 relative z-10 w-full">
+              {/* Value / Main Text */}
+              <div className="text-xl sm:text-2xl font-bold tracking-tight leading-none text-white">
+                Review & Approve
+              </div>
             </div>
           </Link>
+
           <Link
             to="/admin/vehicles"
-            className="glass-card p-5 flex items-center gap-4 group hover:border-amber-500/30"
+            className="glass-card border border-white/10 p-6 sm:p-8 relative overflow-hidden group hover:-translate-y-1 transition-all duration-300 flex flex-col justify-center items-center text-center min-h-[130px] sm:min-h-[150px] hover:border-blue-500/30 hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]"
           >
-            <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-              <FiTruck className="text-amber-500 text-lg" />
+            <FiTruck className="absolute -bottom-4 -right-4 text-[5rem] sm:text-[6rem] opacity-[0.05] group-hover:opacity-[0.15] group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 z-0 text-blue-500" />
+
+            <div className="text-slate-400 text-sm sm:text-base font-medium leading-snug relative z-10 w-full">
+              Manage Fleet
             </div>
-            <div className="min-w-0">
-              <h3 className="text-white font-semibold text-sm">Manage Fleet</h3>
-              <p className="text-slate-400 text-xs mt-0.5">Add, edit, remove</p>
+
+            <div className="flex items-center justify-center mt-3 sm:mt-4 relative z-10 w-full">
+              <div className="text-xl sm:text-2xl font-bold tracking-tight leading-none text-white">
+                Add, Edit, Remove
+              </div>
             </div>
           </Link>
+
           <Link
             to="/admin/customers"
-            className="glass-card p-5 flex items-center gap-4 group hover:border-amber-500/30"
+            className="glass-card border border-white/10 p-6 sm:p-8 relative overflow-hidden group hover:-translate-y-1 transition-all duration-300 flex flex-col justify-center items-center text-center min-h-[130px] sm:min-h-[150px] hover:border-purple-500/30 hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]"
           >
-            <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-              <FiUsers className="text-amber-500 text-lg" />
+            <FiUsers className="absolute -bottom-4 -right-4 text-[5rem] sm:text-[6rem] opacity-[0.05] group-hover:opacity-[0.15] group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 z-0 text-purple-500" />
+
+            <div className="text-slate-400 text-sm sm:text-base font-medium leading-snug relative z-10 w-full">
+              Customers
             </div>
-            <div className="min-w-0">
-              <h3 className="text-white font-semibold text-sm">Customers</h3>
-              <p className="text-slate-400 text-xs mt-0.5">View registered</p>
+
+            <div className="flex items-center justify-center mt-3 sm:mt-4 relative z-10 w-full">
+              <div className="text-xl sm:text-2xl font-bold tracking-tight leading-none text-white">
+                View Registered
+              </div>
             </div>
           </Link>
         </div>
@@ -171,56 +202,92 @@ const AdminDashboard = () => {
         <div className="h-8 sm:h-12 w-full"></div>
 
         {/* Pending bookings */}
-        <div className="glass-card p-5 sm:p-6 mb-8 mt-12">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-white flex items-center gap-1.5">
-              <FiClock className="text-yellow-400" size={14} /> Pending Bookings
+        <div className="glass-card p-6 sm:p-8 relative overflow-hidden flex flex-col h-full border border-white/10 rounded-3xl">
+          {/* Watermark Icon */}
+          <FiClock className="absolute -right-8 -bottom-8 text-[15rem] text-white/5 rotate-[-15deg] pointer-events-none" />
+
+          <div className="flex items-center justify-between mb-8 relative z-10 text-white">
+            <h2 className="text-xl font-bold flex items-center gap-3">
+              <FiClock className="text-blue-500" /> Pending Bookings
             </h2>
             <Link
               to="/admin/bookings"
-              className="text-xs text-amber-500 hover:text-amber-500-light"
+              className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1 group"
             >
-              View All →
+              View All <span className="transform group-hover:translate-x-1 transition-transform">→</span>
             </Link>
           </div>
 
-          {recentBookings.length === 0 ? (
-            <p className="text-slate-400 text-sm text-center py-4">
-              No pending bookings
-            </p>
-          ) : (
-            <div className="space-y-2">
-              {recentBookings.map((booking) => (
-                <div
-                  key={booking._id}
-                  className="flex items-center justify-between p-3 rounded-lg bg-slate-900/[0.02] hover:bg-slate-900/[0.04] transition-colors"
-                >
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center flex-shrink-0">
-                      <FaCar className="text-yellow-400 text-xs" />
-                    </div>
-                    <div className="min-w-0">
-                      <h4 className="text-white text-xs font-medium truncate">
-                        {booking.vehicle?.name}
-                      </h4>
-                      <p className="text-slate-400 text-[10px]">
-                        {booking.customer?.name} ·{" "}
-                        {formatDate(booking.createdAt)}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right flex-shrink-0 ml-3">
-                    <div className="text-amber-500 font-semibold text-xs">
-                      Rs. {booking.totalPrice?.toLocaleString()}
-                    </div>
-                    <div className="text-slate-400 text-[10px] flex items-center gap-0.5 justify-end">
-                      <FiCalendar size={8} /> {formatDate(booking.startDate)}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="relative z-10 overflow-x-auto overflow-y-visible">
+            {recentBookings.length === 0 ? (
+              <p className="text-slate-400 text-sm text-center py-8">
+                No pending bookings
+              </p>
+            ) : (
+              <table className="glass-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Vehicle</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th className="text-right">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recentBookings.map((booking) => {
+                    const dp = getStartDateParts(booking.startDate);
+                    return (
+                      <tr
+                        key={booking._id}
+                        className="glass-table-row"
+                      >
+                        {/* Date Column */}
+                        <td>
+                          <div className="flex flex-col">
+                            <span className="text-white font-medium text-sm sm:text-base tracking-tight">{dp.month} {dp.day}</span>
+                            <span className="text-slate-500 text-xs mt-0.5">{dp.year}</span>
+                          </div>
+                        </td>
+
+                        {/* Vehicle Column */}
+                        <td>
+                          <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                              <FaCar className="text-blue-400 text-base" />
+                            </div>
+                            <span className="text-slate-200 text-sm sm:text-base font-medium truncate max-w-[140px] sm:max-w-xs">{booking.vehicle?.name || "Vehicle"}</span>
+                          </div>
+                        </td>
+
+                        {/* Customer Column */}
+                        <td>
+                          <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                              <FiUsers className="text-purple-400 text-base" />
+                            </div>
+                            <span className="text-slate-200 text-sm sm:text-base font-medium truncate max-w-[140px] sm:max-w-[200px]">{booking.customer?.name || "Customer"}</span>
+                          </div>
+                        </td>
+
+                        {/* Status Column */}
+                        <td className="whitespace-nowrap">
+                          <span className="badge badge-pending">
+                            Pending
+                          </span>
+                        </td>
+
+                        {/* Amount Column */}
+                        <td className="text-right whitespace-nowrap">
+                          <span className="text-white font-bold text-sm sm:text-base tracking-tight">Rs. {booking.totalPrice?.toLocaleString()}</span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
       </div>
     </div>

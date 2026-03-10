@@ -7,8 +7,6 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -394,6 +392,12 @@ select.input-field option {
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
   border-radius: 12px;
+}
+
+/* Form Inputs Accent */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: #f59e0b;
 }
 
 /* ==================== RESPONSIVE CODES ==================== */

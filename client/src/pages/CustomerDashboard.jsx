@@ -113,8 +113,8 @@ const CustomerDashboard = () => {
                             key={f}
                             onClick={() => setFilter(f)}
                             className={`px-4 py-2 rounded-lg text-sm capitalize transition-all ${filter === f
-                                    ? "bg-amber-500/20 text-amber-500 border border-amber-500/30"
-                                    : "text-slate-400 hover:text-white hover:bg-white/10 border border-transparent"
+                                ? "bg-amber-500/20 text-amber-500 border border-amber-500/30"
+                                : "text-slate-400 hover:text-white hover:bg-white/10 border border-transparent"
                                 }`}
                         >
                             {f}
@@ -171,52 +171,55 @@ const CustomerDashboard = () => {
 
                                     {/* Details */}
                                     <div className="flex-1 min-w-0">
-                                        <div className="flex items-start justify-between gap-2 mb-2">
+                                        <div className="flex items-start justify-between gap-4 mb-3">
                                             <div>
-                                                <h3 className="text-white font-semibold">
+                                                <h3 className="text-white text-lg font-bold mb-0.5 max-w-[200px] sm:max-w-md truncate">
                                                     {booking.vehicle?.name || "Vehicle"}
                                                 </h3>
-                                                <span className="text-slate-400 text-sm">
+                                                <span className="text-slate-400 text-sm font-medium">
                                                     {booking.vehicle?.category}
                                                 </span>
                                             </div>
-                                            <span className={`badge ${statusColors[booking.status]}`}>
-                                                {booking.status}
-                                            </span>
+
+                                            {/* Status Badge & Action Container */}
+                                            <div className="flex items-center gap-3 shrink-0">
+                                                <span className={`badge ${statusColors[booking.status]} mb-0`}>
+                                                    {booking.status}
+                                                </span>
+                                                {booking.status === "pending" && (
+                                                    <button
+                                                        onClick={() => handleCancel(booking._id)}
+                                                        className="btn-danger !py-1.5 !px-3 !text-xs flex items-center gap-1.5 whitespace-nowrap"
+                                                    >
+                                                        <FiX size={14} /> Cancel
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
 
-                                        <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-slate-400">
-                                            <span className="flex items-center gap-1">
+                                        {/* Specs List */}
+                                        <div className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-slate-400 font-medium bg-white/5 p-3 rounded-xl border border-white/5 w-fit">
+                                            <span className="flex items-center gap-1.5">
                                                 <FiCalendar size={14} className="text-amber-500" />
                                                 {formatDate(booking.startDate)} -{" "}
                                                 {formatDate(booking.endDate)}
                                             </span>
-                                            <span className="flex items-center gap-1">
+                                            <span className="flex items-center gap-1.5">
                                                 <FiDollarSign size={14} className="text-amber-500" />
                                                 Rs. {booking.totalPrice?.toLocaleString()}
                                             </span>
-                                            <span className="flex items-center gap-1">
+                                            <span className="flex items-center gap-1.5">
                                                 <FiClock size={14} className="text-amber-500" />
                                                 {formatDate(booking.createdAt)}
                                             </span>
                                         </div>
 
                                         {booking.rejectionReason && (
-                                            <p className="mt-2 text-sm text-red-400 bg-red-500/10 px-3 py-1.5 rounded-lg">
-                                                Reason: {booking.rejectionReason}
+                                            <p className="mt-3 text-sm text-red-400 bg-red-500/10 px-4 py-3 rounded-lg border border-red-500/20">
+                                                <span className="font-semibold text-red-300">Reason:</span> {booking.rejectionReason}
                                             </p>
                                         )}
                                     </div>
-
-                                    {/* Actions */}
-                                    {booking.status === "pending" && (
-                                        <button
-                                            onClick={() => handleCancel(booking._id)}
-                                            className="btn-danger !py-2 !px-4 !text-xs flex items-center gap-1"
-                                        >
-                                            <FiX size={14} /> Cancel
-                                        </button>
-                                    )}
                                 </div>
                             </div>
                         ))}

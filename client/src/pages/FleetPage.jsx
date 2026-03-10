@@ -68,175 +68,172 @@ const FleetPage = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <div className="bg-slate-900 border-b border-white/10 py-8">
+      {/* Mobile filter toggle */}
+      <div className="md:hidden p-4 bg-slate-900 border-b border-white/10">
         <div className="container-app">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-            Our <span className="gradient-text">Fleet</span>
-          </h1>
-          <p className="text-slate-400 text-sm">
-            Browse all available vehicles · {vehicles.length} vehicles found
-          </p>
+          <button
+            className="btn-secondary w-full justify-center !py-2 !text-sm"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <FiFilter size={14} /> {showFilters ? "Hide Filters" : "Show Filters"}
+          </button>
         </div>
       </div>
 
-      <div className="container-app py-6">
-        {/* Mobile filter toggle */}
-        <button
-          className="lg:hidden btn-secondary !py-2 !text-sm mb-4 w-full justify-center"
-          onClick={() => setShowFilters(!showFilters)}
+      <div className="container-app flex flex-col md:flex-row items-stretch">
+        {/* Left Sidebar */}
+        <aside
+          className={`w-full md:w-56 lg:w-64 flex-shrink-0 bg-[#161a22] p-5 md:p-6 md:py-8 border-x border-white/5 ${showFilters ? "block" : "hidden md:block"
+            }`}
         >
-          <FiFilter size={14} /> {showFilters ? "Hide Filters" : "Show Filters"}
-        </button>
+          <div className="md:sticky md:top-24">
 
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Sidebar Filters */}
-          <aside
-            className={`lg:w-56 flex-shrink-0 ${showFilters ? "block" : "hidden lg:block"}`}
-          >
-            <div className="glass-card p-4 lg:sticky lg:top-20">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-white font-semibold text-sm flex items-center gap-1.5">
-                  <FiFilter className="text-amber-500" size={14} /> Filters
-                </h3>
-                {hasFilters && (
-                  <button
-                    onClick={clearFilters}
-                    className="text-xs text-red-400 hover:text-red-300 flex items-center gap-1"
-                  >
-                    <FiX size={10} /> Clear
-                  </button>
-                )}
-              </div>
-
-              {/* Search */}
-              <form onSubmit={handleSearch} className="mb-4">
-                <div className="relative">
-                  <FiSearch
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                    size={13}
+            {/* VEHICLE TYPE */}
+            <div className="mb-8">
+              <h4 className="text-[11px] font-bold text-slate-500 tracking-widest uppercase mb-4">
+                Vehicle Type
+              </h4>
+              <div className="space-y-4">
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={!selectedCategory}
+                    onChange={() => {
+                      setSelectedCategory("");
+                      setSearchParams({});
+                    }}
+                    className="w-4 h-4 rounded text-amber-500 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
                   />
+                  <span className={`text-sm font-medium transition-colors ${!selectedCategory ? "text-white" : "text-slate-400 group-hover:text-slate-300"}`}>
+                    All Types
+                  </span>
+                </label>
+                {categories.slice(0, 5).map((cat) => (
+                  <label key={cat._id} className="flex items-center gap-3 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={selectedCategory === cat._id}
+                      onChange={() => {
+                        setSelectedCategory(cat._id);
+                        setSearchParams({ category: cat._id });
+                      }}
+                      className="w-4 h-4 rounded text-amber-500 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
+                    />
+                    <span className={`text-sm font-medium transition-colors ${selectedCategory === cat._id ? "text-white" : "text-slate-400 group-hover:text-slate-300"}`}>
+                      {cat._id}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* FUEL & TRANSMISSION */}
+            <div className="mb-8">
+              <h4 className="text-[11px] font-bold text-slate-500 tracking-widest uppercase mb-4">
+                Fuel & Transmission
+              </h4>
+              <div className="space-y-4">
+                {["Hybrid", "Petrol"].map((f) => (
+                  <label key={f} className="flex items-center gap-3 cursor-pointer group">
+                    <input
+                      type="radio"
+                      name="fuel"
+                      checked={selectedFuelType === f}
+                      onChange={() => setSelectedFuelType(f)}
+                      onClick={() => {
+                        // Allow deselecting radio
+                        if (selectedFuelType === f) setSelectedFuelType("");
+                      }}
+                      className="w-4 h-4 text-amber-500 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
+                    />
+                    <span className={`text-sm font-medium transition-colors ${selectedFuelType === f ? "text-white" : "text-slate-400 group-hover:text-slate-300"}`}>
+                      {f}
+                    </span>
+                  </label>
+                ))}
+
+                <div className="mt-4 pt-4 border-t border-white/5">
+                  <label className="flex items-center gap-3 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={selectedTransmission === "Automatic"}
+                      onChange={() =>
+                        setSelectedTransmission(
+                          selectedTransmission === "Automatic" ? "" : "Automatic",
+                        )
+                      }
+                      className="w-4 h-4 rounded text-amber-500 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
+                    />
+                    <span className={`text-sm font-medium transition-colors ${selectedTransmission === "Automatic" ? "text-white" : "text-slate-400 group-hover:text-slate-300"}`}>
+                      Automatic
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+
+            {/* Search block in sidebar */}
+            <div className="pt-5 border-t border-white/5">
+              <form onSubmit={handleSearch}>
+                <div className="relative">
                   <input
                     type="text"
                     placeholder="Search..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="input-field !pl-9 !py-2 !text-sm"
+                    className="w-full bg-slate-800/50 border border-white/10 rounded-lg pl-9 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
                   />
                 </div>
               </form>
-
-              {/* Category */}
-              <div className="mb-4">
-                <h4 className="text-xs text-slate-400 font-medium mb-2 uppercase tracking-wider">
-                  Category
-                </h4>
-                <div className="space-y-0.5 max-h-60 overflow-y-auto">
-                  <button
-                    onClick={() => {
-                      setSelectedCategory("");
-                      setSearchParams({});
-                    }}
-                    className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition-colors ${!selectedCategory
-                      ? "bg-amber-500/20 text-amber-500"
-                      : "text-slate-400 hover:text-white hover:bg-white/10"
-                      }`}
-                  >
-                    All Categories
-                  </button>
-                  {categories.map((cat) => (
-                    <button
-                      key={cat._id}
-                      onClick={() => {
-                        setSelectedCategory(cat._id);
-                        setSearchParams({ category: cat._id });
-                      }}
-                      className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs flex items-center justify-between transition-colors ${selectedCategory === cat._id
-                        ? "bg-amber-500/20 text-amber-500"
-                        : "text-slate-400 hover:text-white hover:bg-white/10"
-                        }`}
-                    >
-                      <span>{cat._id}</span>
-                      <span className="text-slate-400">{cat.count}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Transmission */}
-              <div className="mb-4">
-                <h4 className="text-xs text-slate-400 font-medium mb-2 uppercase tracking-wider">
-                  Transmission
-                </h4>
-                <div className="space-y-0.5">
-                  {["", "Manual", "Automatic"].map((t) => (
-                    <button
-                      key={t}
-                      onClick={() => setSelectedTransmission(t)}
-                      className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition-colors ${selectedTransmission === t
-                        ? "bg-amber-500/20 text-amber-500"
-                        : "text-slate-400 hover:text-white hover:bg-white/10"
-                        }`}
-                    >
-                      {t || "All"}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Fuel Type */}
-              <div>
-                <h4 className="text-xs text-slate-400 font-medium mb-2 uppercase tracking-wider">
-                  Fuel Type
-                </h4>
-                <div className="space-y-0.5">
-                  {["", "Petrol", "Diesel", "Hybrid", "Electric"].map((f) => (
-                    <button
-                      key={f}
-                      onClick={() => setSelectedFuelType(f)}
-                      className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition-colors ${selectedFuelType === f
-                        ? "bg-amber-500/20 text-amber-500"
-                        : "text-slate-400 hover:text-white hover:bg-white/10"
-                        }`}
-                    >
-                      {f || "All"}
-                    </button>
-                  ))}
-                </div>
-              </div>
             </div>
-          </aside>
+
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 py-6 md:py-8 pl-0 md:pl-6 lg:pl-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+            <div>
+              <h1 className="text-3xl sm:text-[32px] font-extrabold text-white mb-2 tracking-tight">
+                Vehicle Fleet
+              </h1>
+              <p className="text-slate-400 text-sm font-medium">
+                Showing {vehicles.length} available vehicles in your inventory
+              </p>
+            </div>
+          </div>
 
           {/* Vehicle Grid */}
-          <div className="flex-1 min-w-0">
+          <div className="min-w-0">
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="shimmer h-72 rounded-2xl" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+                {[...Array(8)].map((_, i) => (
+                  <div key={i} className="shimmer h-[340px] rounded-2xl" />
                 ))}
               </div>
             ) : vehicles.length === 0 ? (
-              <div className="glass-card p-10 text-center">
-                <FaCar className="text-3xl text-slate-400 mx-auto mb-3" />
-                <h3 className="text-white text-base font-semibold mb-1">
+              <div className="bg-slate-800/30 border border-white/5 rounded-2xl p-12 text-center mt-4">
+                <FaCar className="text-4xl text-slate-500 mx-auto mb-4" />
+                <h3 className="text-white text-lg font-bold mb-2">
                   No vehicles found
                 </h3>
-                <p className="text-slate-400 text-sm mb-4">
-                  Try adjusting your filters.
+                <p className="text-slate-400 text-sm mb-6 max-w-sm mx-auto">
+                  No vehicles matched your current filter criteria. Try expanding your search or clearing filters.
                 </p>
-                <button onClick={clearFilters} className="btn-primary !text-sm">
-                  Clear Filters
+                <button onClick={clearFilters} className="btn-primary">
+                  Clear All Filters
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5">
                 {vehicles.map((v) => (
                   <VehicleCard key={v._id} vehicle={v} />
                 ))}
               </div>
             )}
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

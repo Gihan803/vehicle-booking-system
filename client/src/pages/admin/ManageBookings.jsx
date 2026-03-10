@@ -96,7 +96,6 @@ const ManageBookings = () => {
                 <p className="text-slate-400 mb-6">
                     Review and manage all booking requests
                 </p>
-                <div className="h-8" />
                 {/* Filter tabs */}
                 <div className="inline-flex gap-1 overflow-x-auto hide-scrollbar mb-8 bg-slate-800/80 p-1.5 rounded-full border border-white/10 shadow-sm">
                     {["pending", "confirmed", "rejected", "completed", "all"].map((f) => (
@@ -112,7 +111,6 @@ const ManageBookings = () => {
                         </button>
                     ))}
                 </div>
-                <div className="h-8" />
                 {/* Bookings */}
                 {loading ? (
                     <div className="space-y-4">

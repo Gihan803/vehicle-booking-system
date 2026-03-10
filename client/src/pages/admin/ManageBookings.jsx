@@ -96,23 +96,23 @@ const ManageBookings = () => {
                 <p className="text-slate-400 mb-6">
                     Review and manage all booking requests
                 </p>
-
+                <div className="h-8" />
                 {/* Filter tabs */}
-                <div className="inline-flex gap-1.5 overflow-x-auto hide-scrollbar bg-slate-800/50 p-1.5 rounded-xl border border-white/5 mb-8 w-full sm:w-auto max-w-full">
+                <div className="inline-flex gap-1 overflow-x-auto hide-scrollbar mb-8 bg-slate-800/80 p-1.5 rounded-full border border-white/10 shadow-sm">
                     {["pending", "confirmed", "rejected", "completed", "all"].map((f) => (
                         <button
                             key={f}
                             onClick={() => setFilter(f)}
-                            className={`px-5 py-2.5 rounded-lg text-sm font-medium capitalize whitespace-nowrap transition-all duration-200 ${filter === f
-                                ? "bg-amber-500/20 text-amber-500 border border-amber-500/30 shadow-sm"
-                                : "text-slate-400 hover:text-slate-200 hover:bg-white/5 border border-transparent"
+                            className={`px-5 py-2 rounded-full text-sm font-medium capitalize whitespace-nowrap transition-all duration-200 ${filter === f
+                                ? "bg-amber-500 text-slate-900 font-semibold shadow-md"
+                                : "text-slate-400 hover:text-slate-200"
                                 }`}
                         >
                             {f}
                         </button>
                     ))}
                 </div>
-
+                <div className="h-8" />
                 {/* Bookings */}
                 {loading ? (
                     <div className="space-y-4">

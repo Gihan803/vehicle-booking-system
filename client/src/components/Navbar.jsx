@@ -20,12 +20,10 @@ const Navbar = () => {
   const isAdminSection = location.pathname.startsWith("/admin");
 
   const linkClass = (active) =>
-    `px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
-      active
-        ? "text-amber-500 bg-amber-500/20"
-        : "text-slate-300 hover:text-white hover:bg-white/10"
+    `!px-5 !py-2 rounded-full text-sm font-medium transition-all duration-200 ${active
+      ? "bg-amber-500 text-slate-900 font-semibold"
+      : "text-slate-400 bg-slate-800 hover:text-white hover:bg-slate-700 border border-white/10"
     }`;
-
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-white/10 shadow-sm">
       <div className="container-app">
@@ -44,17 +42,18 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-3">
-            <Link to="/" className={linkClass(isActive("/"))}>
-              Home
-            </Link>
-            <Link to="/fleet" className={linkClass(isActive("/fleet"))}>
-              Fleet
-            </Link>
+          <div className="hidden md:flex items-center gap-6">
+            {/* Links Pill Container */}
+            <div className="flex items-center gap-2">
+              <Link to="/" className={linkClass(isActive("/"))}>
+                Home
+              </Link>
+              <Link to="/fleet" className={linkClass(isActive("/fleet"))}>
+                Fleet
+              </Link>
 
-            {user ? (
-              <>
-                {user.role === "admin" ? (
+              {user && (
+                user.role === "admin" ? (
                   <Link to="/admin" className={linkClass(isAdminSection)}>
                     <span className="flex items-center gap-1.5">
                       <FiGrid size={14} /> Dashboard
@@ -67,34 +66,38 @@ const Navbar = () => {
                   >
                     My Bookings
                   </Link>
-                )}
-                <div className="ml-3 pl-3 border-l border-white/10 flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-amber-600 to-amber-500 flex items-center justify-center text-white font-bold text-xs">
-                    {user.name.charAt(0).toUpperCase()}
-                  </div>
-                  <span className="text-sm text-slate-300 max-w-[100px] truncate">
-                    {user.name}
-                  </span>
-                  <button
-                    onClick={handleLogout}
-                    className="p-1.5 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-white/10"
-                    title="Logout"
-                  >
-                    <FiLogOut size={14} />
-                  </button>
+                )
+              )}
+            </div>
+
+            {/* Profile / Auth section */}
+            {user ? (
+              <div className="flex items-center gap-2 border-l border-white/10 pl-6">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-600 to-amber-500 flex items-center justify-center text-white font-bold text-sm shadow-sm ring-2 ring-slate-800">
+                  {user.name.charAt(0).toUpperCase()}
                 </div>
-              </>
+                <span className="text-sm font-medium text-slate-200 max-w-[100px] truncate">
+                  {user.name}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="ml-1 p-2 text-slate-400 hover:text-red-400 hover:bg-white/5 transition-colors rounded-full"
+                  title="Logout"
+                >
+                  <FiLogOut size={16} />
+                </button>
+              </div>
             ) : (
-              <div className="flex items-center gap-4 ml-4">
+              <div className="flex items-center gap-4 pl-2">
                 <Link
                   to="/login"
-                  className="btn-secondary !py-1.5 !px-6 !text-sm"
+                  className="text-sm font-medium text-slate-300 hover:text-white transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/signup"
-                  className="btn-primary !py-1.5 !px-6 !text-sm"
+                  className="btn-primary !rounded-full !py-2 !px-6 !text-sm shadow-md"
                 >
                   Sign Up
                 </Link>

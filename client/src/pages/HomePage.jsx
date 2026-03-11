@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { FiArrowRight, FiChevronDown } from "react-icons/fi";
 import Footer from "../components/Footer";
+import ctaBack from "../assets/images.jpg";
 
 /* ——— Scroll-reveal hook ——— */
 const useReveal = () => {
@@ -290,38 +291,62 @@ const HomePage = () => {
       </section>
 
       {/* ================================================================
-                FINAL CTA — Full screen amber gradient
+                FINAL CTA — Ultra-Modern Animated Transformation
             ================================================================ */}
-      <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-500">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-orange-900/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.05] pointer-events-none" />
+      <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-slate-950">
+        {/* Cinematic Animated Background */}
+        <div
+          className="absolute inset-0 animate-kenburns pointer-events-none brightness-50 contrast-125"
+          style={{
+            backgroundImage: `url(${ctaBack})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
 
-        <div className="container-app relative z-10 text-center py-20">
-          <Reveal className="flex flex-col items-center text-center w-full mx-auto">
-            <FaCar className="text-white/80 text-7xl mx-auto mb-8 drop-shadow-lg" />
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 drop-shadow leading-tight">
-              Ready to Hit
-              <br />
-              the Road?
-            </h2>
-            <p className="text-amber-100 text-xl mb-12 max-w-xl mx-auto text-center">
-              Sign up now and get instant access to our entire fleet at
-              unbeatable prices.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8">
-              <Link
-                to="/signup"
-                className="inline-flex items-center justify-center w-fit px-8 py-4 sm:px-10 sm:py-5 bg-white text-blue-600 font-extrabold text-lg rounded-2xl shadow-2xl transition-all hover:-translate-y-1 hover:shadow-white/40"
-              >
-                Create Free Account
-              </Link>
-              <Link
-                to="/fleet"
-                className="inline-flex items-center justify-center w-fit px-8 py-4 sm:px-10 sm:py-5 bg-white/20 hover:bg-white/30 text-white font-semibold text-lg rounded-2xl border border-white/30 backdrop-blur-sm transition-all hover:-translate-y-1"
-              >
-                Browse Fleet First
-              </Link>
+        {/* Layered Overlays for Depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-600/10 via-transparent to-indigo-900/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+
+        <div className="container-app relative z-10 px-4">
+          <Reveal className="max-w-5xl mx-auto">
+            <div className="glass-premium-dark p-8 sm:p-20 rounded-[4rem] relative group border border-white/10 overflow-hidden">
+              {/* Interactive Internal Glow */}
+              <div className="absolute -top-32 -right-32 w-80 h-80 bg-amber-500/10 rounded-full blur-[100px] group-hover:bg-amber-500/20 transition-all duration-1000" />
+
+              <div className="relative z-10 text-center">
+                <div className="w-20 h-20 rounded-3xl bg-amber-500 flex items-center justify-center mb-10 mx-auto shadow-[0_0_50px_rgba(245,158,11,0.4)] animate-float">
+                  <FaCar className="text-slate-950 text-4xl" />
+                </div>
+
+                <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-8 tracking-tighter leading-[0.9]">
+                  Ready to Hit
+                  <br />
+                  <span className="text-gradient-amber glow-amber-soft">the Road?</span>
+                </h2>
+
+                <p className="text-slate-300 text-lg sm:text-xl mb-14 max-w-2xl mx-auto font-medium leading-relaxed">
+                  Experience premium terminal-to-door comfort at
+                  <span className="text-white block sm:inline sm:ml-2">prices that make sense.</span>
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+                  <Link
+                    to="/signup"
+                    className="relative inline-flex items-center justify-center w-full sm:w-fit px-12 py-5 bg-white text-slate-950 font-black text-lg rounded-2xl shadow-2xl transition-all hover:-translate-y-1 hover:shadow-white/20 active:scale-95 overflow-hidden"
+                  >
+                    <span>Get Started Now</span>
+                  </Link>
+
+                  <Link
+                    to="/fleet"
+                    className="inline-flex items-center justify-center w-full sm:w-fit px-12 py-5 bg-white/5 hover:bg-white/10 text-white font-bold text-lg rounded-2xl border border-white/10 backdrop-blur-3xl transition-all hover:border-white/20 active:scale-95"
+                  >
+                    Explore Fleet
+                  </Link>
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>

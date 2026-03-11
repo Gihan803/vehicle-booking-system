@@ -65,10 +65,10 @@ The application should now be running at `http://localhost:5173`.
 ## 📸 Screenshots
 
 ### Admin Dashboard
-![Admin Dashboard](./screenshots/admin-dashboard.png)
+![Admin Dashboard](./screenshots/Admin_dashboard.png)
 
 ### Customer Dashboard
-![Customer Dashboard](./screenshots/customer-dashboard.png)
+![Customer Dashboard](./screenshots/User_Dashboard.png)
 
 ### Fleet Browsing
-![Fleet](./screenshots/fleet.png)
+![Fleet](./screenshots/Fleet_section.png)

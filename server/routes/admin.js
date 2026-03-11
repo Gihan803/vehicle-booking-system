@@ -114,9 +114,12 @@ router.put("/bookings/:id", async (req, res) => {
 
     // Check for overlaps when confirming
     if (status === "confirmed") {
+      const vehicleId = currentBooking.vehicle._id || currentBooking.vehicle;
+      console.log(`Checking overlaps for vehicle ${vehicleId} between ${currentBooking.startDate} and ${currentBooking.endDate}`);
+
       const overlapping = await Booking.findOne({
-        vehicle: currentBooking.vehicle._id || currentBooking.vehicle,
-        status: { $in: ["confirmed", "completed"] }, // Don't check pending
+        vehicle: vehicleId,
+        status: { $in: ["confirmed", "completed"] },
         _id: { $ne: req.params.id },
         $or: [
           {
@@ -127,8 +130,9 @@ router.put("/bookings/:id", async (req, res) => {
       });
 
       if (overlapping) {
+        console.log(`Overlapping booking found: ${overlapping._id}`);
         return res.status(400).json({
-          message: "Vehicle is already booked for these dates",
+          message: "Vehicle is already booked for these dates. Please reject or reschedule.",
         });
       }
     }

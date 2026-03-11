@@ -41,8 +41,9 @@ const ManageBookings = () => {
             await updateBookingStatus(id, { status: "confirmed" });
             toast.success("Booking confirmed!");
             fetchBookings();
-        } catch {
-            toast.error("Failed to approve");
+        } catch (err) {
+            const message = err.response?.data?.message || "Failed to approve";
+            toast.error(message);
         }
     };
 
@@ -57,8 +58,9 @@ const ManageBookings = () => {
             setRejectModal(null);
             setRejectReason("");
             fetchBookings();
-        } catch {
-            toast.error("Failed to reject");
+        } catch (err) {
+            const message = err.response?.data?.message || "Failed to reject";
+            toast.error(message);
         }
     };
 
@@ -67,8 +69,9 @@ const ManageBookings = () => {
             await updateBookingStatus(id, { status: "completed" });
             toast.success("Booking marked as completed");
             fetchBookings();
-        } catch {
-            toast.error("Failed to update");
+        } catch (err) {
+            const message = err.response?.data?.message || "Failed to update";
+            toast.error(message);
         }
     };
 

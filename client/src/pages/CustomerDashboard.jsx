@@ -147,20 +147,36 @@ const CustomerDashboard = () => {
                         </Link>
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-10">
+                    <div className="flex flex-col gap-6">
                         {filteredBookings.map((booking) => (
-                            <div key={booking._id} className="glass-card p-5 sm:p-6">
-                                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                                    {/* Vehicle image */}
-                                    <div className="w-full sm:w-28 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-white/5">
+                            <div key={booking._id} className="glass-card overflow-hidden">
+
+                                {/* === MOBILE: full-width banner image === */}
+                                <div className="sm:hidden w-full h-44 overflow-hidden bg-white/5">
+                                    {booking.vehicle?.images?.[0] ? (
+                                        <img
+                                            src={booking.vehicle.images[0]}
+                                            alt={booking.vehicle.name}
+                                            className="w-full h-full object-cover"
+                                            onError={(e) => { e.target.style.display = "none"; }}
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            <FaCar className="text-slate-400 text-3xl" />
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* === SM+: side-by-side layout === */}
+                                <div className="hidden sm:flex p-5 gap-4 items-center">
+                                    {/* Thumbnail */}
+                                    <div className="w-28 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-white/5">
                                         {booking.vehicle?.images?.[0] ? (
                                             <img
                                                 src={booking.vehicle.images[0]}
                                                 alt={booking.vehicle.name}
                                                 className="w-full h-full object-cover"
-                                                onError={(e) => {
-                                                    e.target.style.display = "none";
-                                                }}
+                                                onError={(e) => { e.target.style.display = "none"; }}
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center">
@@ -173,17 +189,15 @@ const CustomerDashboard = () => {
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-start justify-between gap-4 mb-3">
                                             <div>
-                                                <h3 className="text-white text-lg font-bold mb-0.5 max-w-[200px] sm:max-w-md truncate">
+                                                <h3 className="text-white text-lg font-bold mb-0.5 truncate max-w-xs lg:max-w-md">
                                                     {booking.vehicle?.name || "Vehicle"}
                                                 </h3>
                                                 <span className="text-slate-400 text-sm font-medium">
                                                     {booking.vehicle?.category}
                                                 </span>
                                             </div>
-
-                                            {/* Status Badge & Action Container */}
                                             <div className="flex items-center gap-3 shrink-0">
-                                                <span className={`badge ${statusColors[booking.status]} mb-0`}>
+                                                <span className={`badge ${statusColors[booking.status]}`}>
                                                     {booking.status}
                                                 </span>
                                                 {booking.status === "pending" && (
@@ -196,24 +210,11 @@ const CustomerDashboard = () => {
                                                 )}
                                             </div>
                                         </div>
-
-                                        {/* Specs List */}
-                                        <div className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-slate-400 font-medium bg-white/5 p-3 rounded-xl border border-white/5 w-fit">
-                                            <span className="flex items-center gap-1.5">
-                                                <FiCalendar size={14} className="text-amber-500" />
-                                                {formatDate(booking.startDate)} -{" "}
-                                                {formatDate(booking.endDate)}
-                                            </span>
-                                            <span className="flex items-center gap-1.5">
-                                                <FiDollarSign size={14} className="text-amber-500" />
-                                                Rs. {booking.totalPrice?.toLocaleString()}
-                                            </span>
-                                            <span className="flex items-center gap-1.5">
-                                                <FiClock size={14} className="text-amber-500" />
-                                                {formatDate(booking.createdAt)}
-                                            </span>
+                                        <div className="flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-slate-400 font-medium bg-white/5 p-3 rounded-xl border border-white/5 w-fit">
+                                            <span className="flex items-center gap-1.5"><FiCalendar size={13} className="text-amber-500" />{formatDate(booking.startDate)} – {formatDate(booking.endDate)}</span>
+                                            <span className="flex items-center gap-1.5"><FiDollarSign size={13} className="text-amber-500" />Rs. {booking.totalPrice?.toLocaleString()}</span>
+                                            <span className="flex items-center gap-1.5"><FiClock size={13} className="text-amber-500" />{formatDate(booking.createdAt)}</span>
                                         </div>
-
                                         {booking.rejectionReason && (
                                             <p className="mt-3 text-sm text-red-400 bg-red-500/10 px-4 py-3 rounded-lg border border-red-500/20">
                                                 <span className="font-semibold text-red-300">Reason:</span> {booking.rejectionReason}
@@ -221,6 +222,40 @@ const CustomerDashboard = () => {
                                         )}
                                     </div>
                                 </div>
+
+                                {/* === MOBILE: card body below banner === */}
+                                <div className="sm:hidden p-4">
+                                    <div className="flex items-start justify-between gap-3 mb-3">
+                                        <div className="min-w-0">
+                                            <h3 className="text-white text-base font-bold truncate">
+                                                {booking.vehicle?.name || "Vehicle"}
+                                            </h3>
+                                            <span className="text-slate-400 text-sm">{booking.vehicle?.category}</span>
+                                        </div>
+                                        <div className="flex flex-col items-end gap-2 shrink-0">
+                                            <span className={`badge ${statusColors[booking.status]}`}>{booking.status}</span>
+                                            {booking.status === "pending" && (
+                                                <button
+                                                    onClick={() => handleCancel(booking._id)}
+                                                    className="btn-danger !py-1 !px-3 !text-xs flex items-center gap-1"
+                                                >
+                                                    <FiX size={12} /> Cancel
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-400 font-medium bg-white/5 px-3 py-2.5 rounded-xl border border-white/5 w-fit">
+                                        <span className="flex items-center gap-1.5"><FiCalendar size={12} className="text-amber-500" />{formatDate(booking.startDate)} – {formatDate(booking.endDate)}</span>
+                                        <span className="flex items-center gap-1.5"><FiDollarSign size={12} className="text-amber-500" />Rs. {booking.totalPrice?.toLocaleString()}</span>
+                                        <span className="flex items-center gap-1.5"><FiClock size={12} className="text-amber-500" />{formatDate(booking.createdAt)}</span>
+                                    </div>
+                                    {booking.rejectionReason && (
+                                        <p className="mt-3 text-sm text-red-400 bg-red-500/10 px-4 py-3 rounded-lg border border-red-500/20">
+                                            <span className="font-semibold text-red-300">Reason:</span> {booking.rejectionReason}
+                                        </p>
+                                    )}
+                                </div>
+
                             </div>
                         ))}
                     </div>

@@ -242,10 +242,10 @@ router.put("/vehicles/:id", upload.array("images", 5), async (req, res) => {
     if (available !== undefined)
       vehicle.available = available === "true" || available === true;
 
-    // Append new images if uploaded
+    // Replace existing images if new ones are uploaded
     if (req.files && req.files.length > 0) {
       const newImages = req.files.map((file) => `/uploads/${file.filename}`);
-      vehicle.images = [...vehicle.images, ...newImages];
+      vehicle.images = newImages;
     }
 
     await vehicle.save();

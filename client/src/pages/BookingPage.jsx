@@ -76,7 +76,7 @@ const BookingPage = () => {
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
+                <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
             </div>
         );
     }
@@ -172,7 +172,7 @@ const BookingPage = () => {
                         <div className="glass-card p-5 sticky top-24">
                             <div className="flex items-center gap-3 mb-4 pb-4 border-b border-white/10">
                                 <div className="w-14 h-14 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
-                                    <FaCar className="text-amber-500 text-xl" />
+                                    <FaCar className="text-blue-500 text-xl" />
                                 </div>
                                 <div>
                                     <h3 className="text-white font-semibold text-sm">

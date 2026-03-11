@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-600 to-amber-500 flex items-center justify-center">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-700 to-blue-600 flex items-center justify-center">
                 <FaCar className="text-white text-xs" />
               </div>
               <span className="font-bold text-white text-sm">
@@ -37,7 +37,7 @@ const Footer = () => {
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className="text-slate-400 hover:text-amber-500 text-xs transition-colors"
+                    className="text-slate-400 hover:text-blue-500 text-xs transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -56,7 +56,7 @@ const Footer = () => {
                 <li key={cat}>
                   <Link
                     to={`/fleet?category=${cat}`}
-                    className="text-slate-400 hover:text-amber-500 text-xs transition-colors"
+                    className="text-slate-400 hover:text-blue-500 text-xs transition-colors"
                   >
                     {cat}
                   </Link>

@@ -53,7 +53,7 @@ const VehicleDetailPage = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-10 h-10 border-3 border-amber-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-3 border-blue-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -127,7 +127,7 @@ const VehicleDetailPage = () => {
                     key={i}
                     onClick={() => setSelectedImage(i)}
                     className={`flex-shrink-0 w-20 h-16 rounded-xl overflow-hidden border-2 transition-all ${selectedImage === i
-                      ? "border-amber-500 shadow-lg shadow-amber-500/20"
+                      ? "border-blue-600 shadow-lg shadow-blue-600/20"
                       : "border-transparent opacity-50 hover:opacity-100 hover:border-white/10"
                       }`}
                   >
@@ -145,7 +145,7 @@ const VehicleDetailPage = () => {
           {/* Details */}
           <div className="flex flex-col">
             <div className="flex items-center gap-2 mb-3 flex-wrap">
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500 text-white shadow-sm border border-amber-400">
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-600 text-white shadow-sm border border-blue-400">
                 {vehicle.category}
               </span>
               <span
@@ -191,7 +191,7 @@ const VehicleDetailPage = () => {
                   className="bg-slate-900/[0.03] border border-white/10 p-4 rounded-2xl text-center hover:bg-slate-900/[0.05] transition-colors"
                 >
                   <spec.icon
-                    className="text-amber-500 mx-auto mb-2"
+                    className="text-blue-500 mx-auto mb-2"
                     size={20}
                   />
                   <div className="text-white font-semibold text-sm sm:text-base">
@@ -216,7 +216,7 @@ const VehicleDetailPage = () => {
                       key={i}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/[0.02] hover:bg-slate-900/[0.05] transition-colors text-xs sm:text-sm text-slate-700 border border-white/10"
                     >
-                      <FiCheck className="text-amber-500" size={14} /> {f}
+                      <FiCheck className="text-blue-500" size={14} /> {f}
                     </span>
                   ))}
                 </div>
@@ -225,8 +225,8 @@ const VehicleDetailPage = () => {
 
             {/* Pricing & Book - Sticks to bottom */}
             <div className="mt-auto">
-              <div className="glass-card p-6 border-amber-500/30 bg-gradient-to-br from-slate-800 to-slate-900 relative overflow-hidden">
-                <div className="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/20 rounded-full blur-2xl"></div>
+              <div className="glass-card p-6 border-blue-600/30 bg-gradient-to-br from-slate-800 to-slate-900 relative overflow-hidden">
+                <div className="absolute -right-10 -top-10 w-32 h-32 bg-blue-600/20 rounded-full blur-2xl"></div>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative z-10">
                   <div>
                     <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1">
@@ -276,7 +276,7 @@ const VehicleDetailPage = () => {
               </h2>
               <Link
                 to={`/fleet?category=${vehicle.category}`}
-                className="text-sm font-medium text-amber-500 hover:text-white transition-colors"
+                className="text-sm font-medium text-blue-500 hover:text-white transition-colors"
               >
                 View All {vehicle.category}s →
               </Link>

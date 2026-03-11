@@ -32,7 +32,7 @@ const AdminDashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-10 h-10 border-3 border-amber-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-3 border-blue-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -40,14 +40,14 @@ const AdminDashboard = () => {
   const statCards = [
     { label: "Total Vehicles", value: stats?.totalVehicles || 0, icon: FiTruck, iconColor: "text-blue-400" },
     { label: "Available", value: stats?.availableVehicles || 0, icon: FaCar, iconColor: "text-green-400" },
-    { label: "Pending", value: stats?.pendingBookings || 0, icon: FiClock, iconColor: "text-yellow-400" },
+    { label: "Pending", value: stats?.pendingBookings || 0, icon: FiClock, iconColor: "text-blue-400" },
     { label: "Confirmed", value: stats?.confirmedBookings || 0, icon: FiCheckCircle, iconColor: "text-emerald-400" },
     { label: "Customers", value: stats?.totalCustomers || 0, icon: FiUsers, iconColor: "text-purple-400" },
-    { label: "Revenue", value: `Rs. ${(stats?.totalRevenue || 0).toLocaleString()}`, icon: FiDollarSign, iconColor: "text-amber-500" },
+    { label: "Revenue", value: `Rs. ${(stats?.totalRevenue || 0).toLocaleString()}`, icon: FiDollarSign, iconColor: "text-blue-500" },
   ];
 
   const quickLinks = [
-    { to: "/admin/bookings", label: "Manage Bookings", subtitle: "Review & Approve", icon: FiList, hoverColor: "hover:border-amber-500/30 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]", glowColor: "text-amber-500" },
+    { to: "/admin/bookings", label: "Manage Bookings", subtitle: "Review & Approve", icon: FiList, hoverColor: "hover:border-blue-600/30 hover:shadow-[0_0_20px_rgba(37,99,235,0.15)]", glowColor: "text-blue-500" },
     { to: "/admin/vehicles", label: "Manage Fleet", subtitle: "Add, Edit, Remove", icon: FiTruck, hoverColor: "hover:border-blue-500/30 hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]", glowColor: "text-blue-500" },
     { to: "/admin/customers", label: "Customers", subtitle: "View Registered", icon: FiUsers, hoverColor: "hover:border-purple-500/30 hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]", glowColor: "text-purple-500" },
   ];

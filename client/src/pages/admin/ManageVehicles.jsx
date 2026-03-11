@@ -213,7 +213,7 @@ const ManageVehicles = () => {
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
-                            <FaCar className="text-amber-500" />
+                            <FaCar className="text-blue-500" />
                           </div>
                           <div>
                             <div className="text-white text-sm font-medium">
@@ -226,7 +226,7 @@ const ManageVehicles = () => {
                         </div>
                       </td>
                       <td className="py-3 px-4 hidden sm:table-cell">
-                        <span className="px-2 py-1 bg-amber-500/20 text-amber-500 text-xs rounded-md">
+                        <span className="px-2 py-1 bg-blue-600/20 text-blue-400 text-xs rounded-md">
                           {v.category}
                         </span>
                       </td>
@@ -241,7 +241,7 @@ const ManageVehicles = () => {
                         </div>
                       </td>
                       <td className="py-3 px-4">
-                        <span className="text-amber-500 font-semibold text-sm">
+                        <span className="text-blue-600 font-semibold text-sm">
                           Rs. {v.pricePerDay?.toLocaleString()}
                         </span>
                       </td>

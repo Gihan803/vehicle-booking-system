@@ -99,12 +99,12 @@ const VehicleCard = ({ vehicle }) => {
           {/* Price & CTA */}
           <div className="flex items-center justify-between">
             <div className="flex items-baseline gap-1">
-              <span className="text-amber-500 font-bold text-lg">
+              <span className="text-blue-600 font-bold text-lg">
                 Rs. {vehicle.pricePerDay?.toLocaleString()}
               </span>
               <span className="text-slate-500 text-xs">/ day</span>
             </div>
-            <span className="text-amber-500 font-semibold text-sm flex items-center gap-0.5 group-hover:gap-1.5 transition-all">
+            <span className="text-blue-600 font-semibold text-sm flex items-center gap-0.5 group-hover:gap-1.5 transition-all">
               View Details <FiChevronRight size={15} />
             </span>
           </div>

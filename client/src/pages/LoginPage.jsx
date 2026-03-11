@@ -42,7 +42,7 @@ const LoginPage = () => {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-600 to-amber-500 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-700 to-blue-600 flex items-center justify-center">
               <FaCar className="text-white text-2xl" />
             </div>
           </Link>
@@ -116,7 +116,7 @@ const LoginPage = () => {
               Don't have an account?{" "}
               <Link
                 to="/signup"
-                className="text-amber-500 hover:text-amber-500-light font-medium"
+                className="text-blue-600 hover:text-blue-500 font-medium"
               >
                 Sign Up
               </Link>

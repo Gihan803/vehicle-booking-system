@@ -102,7 +102,7 @@ const FleetPage = () => {
                       setSelectedCategory("");
                       setSearchParams({});
                     }}
-                    className="w-4 h-4 rounded text-amber-500 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
+                    className="w-4 h-4 rounded text-blue-600 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
                   />
                   <span className={`text-sm font-medium transition-colors ${!selectedCategory ? "text-white" : "text-slate-400 group-hover:text-slate-300"}`}>
                     All Types
@@ -117,7 +117,7 @@ const FleetPage = () => {
                         setSelectedCategory(cat._id);
                         setSearchParams({ category: cat._id });
                       }}
-                      className="w-4 h-4 rounded text-amber-500 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
+                      className="w-4 h-4 rounded text-blue-600 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
                     />
                     <span className={`text-sm font-medium transition-colors ${selectedCategory === cat._id ? "text-white" : "text-slate-400 group-hover:text-slate-300"}`}>
                       {cat._id}
@@ -144,7 +144,7 @@ const FleetPage = () => {
                         // Allow deselecting radio
                         if (selectedFuelType === f) setSelectedFuelType("");
                       }}
-                      className="w-4 h-4 text-amber-500 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
+                      className="w-4 h-4 text-blue-600 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
                     />
                     <span className={`text-sm font-medium transition-colors ${selectedFuelType === f ? "text-white" : "text-slate-400 group-hover:text-slate-300"}`}>
                       {f}
@@ -162,7 +162,7 @@ const FleetPage = () => {
                           selectedTransmission === "Automatic" ? "" : "Automatic",
                         )
                       }
-                      className="w-4 h-4 rounded text-amber-500 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
+                      className="w-4 h-4 rounded text-blue-600 bg-slate-800 border-white/20 focus:ring-offset-0 focus:ring-0 cursor-pointer"
                     />
                     <span className={`text-sm font-medium transition-colors ${selectedTransmission === "Automatic" ? "text-white" : "text-slate-400 group-hover:text-slate-300"}`}>
                       Automatic
@@ -182,7 +182,7 @@ const FleetPage = () => {
                     placeholder="Search..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full bg-slate-800/50 border border-white/10 rounded-lg pl-9 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+                    className="w-full bg-slate-800/50 border border-white/10 rounded-lg pl-9 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-colors"
                   />
                 </div>
               </form>

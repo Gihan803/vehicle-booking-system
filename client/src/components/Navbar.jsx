@@ -21,7 +21,7 @@ const Navbar = () => {
 
   const linkClass = (active) =>
     `!px-5 !py-2 rounded-full text-sm font-medium transition-all duration-200 ${active
-      ? "bg-amber-500 text-slate-900 font-semibold"
+      ? "bg-blue-600 text-white font-semibold"
       : "text-slate-400 bg-slate-800 hover:text-white hover:bg-slate-700 border border-white/10"
     }`;
   return (
@@ -34,7 +34,7 @@ const Navbar = () => {
             className="flex items-center gap-2 flex-shrink-0"
             onClick={() => setMenuOpen(false)}
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-600 to-amber-500 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-700 to-blue-600 flex items-center justify-center">
               <FaCar className="text-white text-sm" />
             </div>
             <span className="text-base font-bold text-white">Pelmadulla</span>
@@ -73,7 +73,7 @@ const Navbar = () => {
             {/* Profile / Auth section */}
             {user ? (
               <div className="flex items-center gap-2 border-l border-white/10 pl-6">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-600 to-amber-500 flex items-center justify-center text-white font-bold text-sm shadow-sm ring-2 ring-slate-800">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-700 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-sm ring-2 ring-slate-800">
                   {user.name.charAt(0).toUpperCase()}
                 </div>
                 <span className="text-sm font-medium text-slate-200 max-w-[100px] truncate">

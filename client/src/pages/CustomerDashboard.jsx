@@ -113,7 +113,7 @@ const CustomerDashboard = () => {
                             key={f}
                             onClick={() => setFilter(f)}
                             className={`px-4 py-2 rounded-lg text-sm capitalize transition-all ${filter === f
-                                ? "bg-amber-500/20 text-amber-500 border border-amber-500/30"
+                                ? "bg-blue-600/20 text-blue-400 border border-blue-600/30"
                                 : "text-slate-400 hover:text-white hover:bg-white/10 border border-transparent"
                                 }`}
                         >
@@ -211,9 +211,9 @@ const CustomerDashboard = () => {
                                             </div>
                                         </div>
                                         <div className="flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-slate-400 font-medium bg-white/5 p-3 rounded-xl border border-white/5 w-fit">
-                                            <span className="flex items-center gap-1.5"><FiCalendar size={13} className="text-amber-500" />{formatDate(booking.startDate)} – {formatDate(booking.endDate)}</span>
-                                            <span className="flex items-center gap-1.5"><FiDollarSign size={13} className="text-amber-500" />Rs. {booking.totalPrice?.toLocaleString()}</span>
-                                            <span className="flex items-center gap-1.5"><FiClock size={13} className="text-amber-500" />{formatDate(booking.createdAt)}</span>
+                                            <span className="flex items-center gap-1.5"><FiCalendar size={13} className="text-blue-500" />{formatDate(booking.startDate)} – {formatDate(booking.endDate)}</span>
+                                            <span className="flex items-center gap-1.5"><FiDollarSign size={13} className="text-blue-500" />Rs. {booking.totalPrice?.toLocaleString()}</span>
+                                            <span className="flex items-center gap-1.5"><FiClock size={13} className="text-blue-500" />{formatDate(booking.createdAt)}</span>
                                         </div>
                                         {booking.rejectionReason && (
                                             <p className="mt-3 text-sm text-red-400 bg-red-500/10 px-4 py-3 rounded-lg border border-red-500/20">
@@ -245,9 +245,9 @@ const CustomerDashboard = () => {
                                         </div>
                                     </div>
                                     <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-400 font-medium bg-white/5 px-3 py-2.5 rounded-xl border border-white/5 w-fit">
-                                        <span className="flex items-center gap-1.5"><FiCalendar size={12} className="text-amber-500" />{formatDate(booking.startDate)} – {formatDate(booking.endDate)}</span>
-                                        <span className="flex items-center gap-1.5"><FiDollarSign size={12} className="text-amber-500" />Rs. {booking.totalPrice?.toLocaleString()}</span>
-                                        <span className="flex items-center gap-1.5"><FiClock size={12} className="text-amber-500" />{formatDate(booking.createdAt)}</span>
+                                        <span className="flex items-center gap-1.5"><FiCalendar size={12} className="text-blue-500" />{formatDate(booking.startDate)} – {formatDate(booking.endDate)}</span>
+                                        <span className="flex items-center gap-1.5"><FiDollarSign size={12} className="text-blue-500" />Rs. {booking.totalPrice?.toLocaleString()}</span>
+                                        <span className="flex items-center gap-1.5"><FiClock size={12} className="text-blue-500" />{formatDate(booking.createdAt)}</span>
                                     </div>
                                     {booking.rejectionReason && (
                                         <p className="mt-3 text-sm text-red-400 bg-red-500/10 px-4 py-3 rounded-lg border border-red-500/20">

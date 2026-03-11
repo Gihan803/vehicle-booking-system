@@ -415,3 +415,52 @@ input[type="radio"] {
     padding-right: 1.5rem;
   }
 }
+
+/* ==================== MODERN CTA ANIMATIONS ==================== */
+
+@keyframes kenburns {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1) rotate(0.5deg);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer-bg {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-kenburns {
+  animation: kenburns 30s ease-in-out infinite;
+}
+
+.glass-premium-dark {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+.text-gradient-amber {
+  background: linear-gradient(to right, #fbbf24, #f59e0b, #ea580c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-amber-soft {
+  filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4));
+}
